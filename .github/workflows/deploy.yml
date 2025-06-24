@@ -14,12 +14,12 @@ jobs:
 
     - name: Deploy to EC2
       uses: appleboy/ssh-action@master
-      env:
-        KEY: ${{ secrets.EC2_SSH_KEY }}
       with:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USERNAME }}
-        key: ${{ format('{0}{1}{0}', '%', '%') }}env.KEY
+        key: ${{ secrets.EC2_SSH_KEY }}
+        port: 22
+        timeout: 30s
         script: |
           cd /home/ec2-user/TaskManagement  # Verify this is the correct path on your EC2
           git fetch
